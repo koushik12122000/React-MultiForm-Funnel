@@ -1,0 +1,1863 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "disability-lead",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "7e422c90-f3c1-4626-a092-8de54ad901e1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -432,
+        -960
+      ],
+      "webhookId": "d86c19d7-b572-4a8b-bba0-d3c7465d268d"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appQJ8Yn1YacAvorw",
+          "mode": "list",
+          "cachedResultName": "Disability Claim Leads",
+          "cachedResultUrl": "https://airtable.com/appQJ8Yn1YacAvorw"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblvjcnY7yD4HIq5x",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appQJ8Yn1YacAvorw/tblvjcnY7yD4HIq5x"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Full Name": "={{ $json.body.lead.full_name }}",
+            "Phone Number": "={{ $json.body.lead.phone }}",
+            "Email": "={{ $json.body.lead.email }}",
+            "Age Range": "={{ $json.body.qualification_answers.page_uhs14w }}",
+            "Current Benefits ": "={{ $json.body.qualification_answers.receiving_ben }}",
+            "Work Status": "={{ $json.body.qualification_answers.page_sm72h5 }}",
+            "Out of Work 1+ Year": "={{ $json.body.qualification_answers.outofwork }}",
+            "10-Year Employment": "={{ $json.body.qualification_answers.fiveyearwork }}",
+            "Seeing Doctor": "={{ $json.body.qualification_answers.visit }}",
+            "Gender": "={{ $json.body.qualification_answers.page_1kwm6b }}",
+            "Pending SSG Claim": "={{ $json.body.qualification_answers.page_igxwft }}",
+            "Maritual Status": "={{ $json.body.qualification_answers.page_8w2qbu }}",
+            "UTM Source": "={{ $json.body.attribution.utm_source }}",
+            "UTM Campaign": "={{ $json.body.attribution.utm_campaign }}",
+            "Meta Event ID": "={{ $json.body.meta_capi_data.event_id }}",
+            "Submitted At": "={{ $json.body.created_at }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Current Benefits ",
+              "displayName": "Current Benefits ",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Work Status",
+              "displayName": "Work Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "10-Year Employment",
+              "displayName": "10-Year Employment",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Out of Work 1+ Year",
+              "displayName": "Out of Work 1+ Year",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Seeing Doctor",
+              "displayName": "Seeing Doctor",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Pending SSG Claim",
+              "displayName": "Pending SSG Claim",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Gender",
+              "displayName": "Gender",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Age Range",
+              "displayName": "Age Range",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Maritual Status",
+              "displayName": "Maritual Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Meta Event ID",
+              "displayName": "Meta Event ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "UTM Source",
+              "displayName": "UTM Source",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "UTM Campaign",
+              "displayName": "UTM Campaign",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Submitted At",
+              "displayName": "Submitted At",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "88daed25-7a6b-4962-8e60-336ffb25a326",
+      "name": "Create a record",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        -368,
+        144
+      ],
+      "waitBetweenTries": 2000,
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "6kETcgdrKSPNLt2W",
+          "name": "Airtable account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v23.0/970309768738719/events",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "EAAfnODQYP9wBSjfWGZBZConCAlYtfVztKvbtto6n6JonIZBZCuEqNuOAOQ1kIRfqQUZBcZCXaMyxK9JTJT16I2zx29ltW9M3AKsY3ee91pzebEjMsAR0fvDRaduBKPMySbbQeWnWfcSjIXdvTJFhZADlNsZBegEWobGBz07Th02u9gZCKtDmTWqIUVYCX3xvvQRjSPQZDZD"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{$json}}",
+        "options": {}
+      },
+      "id": "1445b434-e9d0-4dfe-9f03-71bddfa0778f",
+      "name": "Meta CAPI",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -176,
+        -48
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    data: [\n      {\n        ...$input.item.json.body.meta_capi_data,\n\n        user_data: {\n          ...$input.item.json.body.meta_capi_data.user_data,\n\n          // Add client IP\n          client_ip_address: $input.item.json.headers[\"cf-connecting-ip\"],\n\n          // Add browser user agent\n          client_user_agent: $input.item.json.headers[\"user-agent\"],\n\n          // Add external identifier\n          external_id: [\n            $input.item.json.body.lead_id\n          ]\n        }\n      }\n    ]\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -384,
+        -48
+      ],
+      "id": "19202c66-8799-4112-aaf5-aa206452755b",
+      "name": "Code in JavaScript1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "63bf339e-47cd-4466-83b7-a66e008eaabf",
+              "leftValue": "={{ $json.is_valid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        0,
+        -960
+      ],
+      "id": "e745c67e-c3c9-4ece-b764-7f72ae99bcec",
+      "name": "Is Valid Lead?"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.item.json.body;\n\n// 1. Normalization\nconst rawEmail = (body.lead?.email || '').trim().toLowerCase();\nconst rawPhone = (body.lead?.normalized_phone || body.lead?.phone || '').replace(/\\D/g, '');\nconst fullName = (body.lead?.full_name || '').trim();\n\n// 2. Strict Validation Regex\nconst emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/;\nconst isEmailValid = emailRegex.test(rawEmail) && !rawEmail.includes('test@test');\nconst isPhoneValid = rawPhone.length >= 10;\nconst isNameValid = fullName.length >= 2;\n\nconst errors = [];\nif (!isNameValid) errors.push('INVALID_NAME');\nif (!isEmailValid) errors.push('INVALID_EMAIL');\nif (!isPhoneValid) errors.push('INVALID_PHONE');\n\nconst isValid = errors.join('') === '' && errors.length === 0;\n\nreturn [\n  {\n    json: {\n      ...body,\n      is_valid: isValid,\n      quarantine_reason: errors.join('|'),\n      normalized: {\n        email: rawEmail,\n        phone: rawPhone,\n        fullName\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -192,
+        -960
+      ],
+      "id": "932e9ae8-0cf2-4463-bde9-f88997a7e99c",
+      "name": "Normalize + Validate"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Reference the output from 'Normalize + Validate'\nconst lead = $('Normalize + Validate').first().json;\nconst answers = lead.qualification_answers || {};\n\nlet score = 0;\nconst scoringBreakdown = [];\n\n// Rule 1: Benefits\nif (answers.receiving_ben?.includes('SSD') || answers.receiving_ben?.includes('SSI')) {\n  score += 25;\n  scoringBreakdown.push('SSD/SSI Benefits (+25)');\n}\n\n// Rule 2: Work status\nif (answers.page_sm72h5?.toLowerCase().includes('not working')) {\n  score += 25;\n  scoringBreakdown.push('Not Working (+25)');\n} else if (answers.page_sm72h5?.toLowerCase().includes('20 hours or less')) {\n  score += 15;\n  scoringBreakdown.push('Part Time <= 20h (+15)');\n}\n\n// Rule 3: Low Assets / Income (< $2000)\nif (answers.page_lyensr?.includes('Less than $2000')) {\n  score += 20;\n  scoringBreakdown.push('Low Assets <$2k (+20)');\n}\n\n// Rule 4: Work history\nif (answers.fiveyearwork?.includes('Between 2 and 4 years') || answers.page_9j3p4b?.includes('4 or more years')) {\n  score += 20;\n  scoringBreakdown.push('Work History (+20)');\n}\n\n// Rule 5: Age 40+\nif (answers.page_uhs14w?.includes('40') || answers.page_uhs14w?.includes('50') || answers.page_uhs14w?.includes('60')) {\n  score += 10;\n  scoringBreakdown.push('Age 40+ (+10)');\n}\n\nscore = Math.min(100, score);\n\n// Lead Grading & Dynamic Meta Conversion Value (Value-Based Bidding)\nlet grade = 'COLD';\nlet dynamicValue = 15.00;\n\nif (score >= 80) {\n  grade = 'HOT';\n  dynamicValue = 100.00;\n} else if (score >= 50) {\n  grade = 'WARM';\n  dynamicValue = 45.00;\n}\n\n// Build enriched Meta CAPI payload\nconst headers = $('Webhook').first().json.headers;\nconst clientIp = headers['x-real-ip'] || headers['cf-connecting-ip'] || headers['x-forwarded-for']?.split(',')[0]?.trim();\n\nconst metaCapiData = {\n  ...lead.meta_capi_data,\n  user_data: {\n    ...lead.meta_capi_data?.user_data,\n    client_ip_address: clientIp\n  },\n  custom_data: {\n    currency: 'USD',\n    value: dynamicValue,\n    lead_score: score,\n    lead_grade: grade,\n    lead_type: 'disability_qualification'\n  }\n};\n\nreturn [\n  {\n    json: {\n      ...lead,\n      lead_score: score,\n      lead_grade: grade,\n      scoring_breakdown: scoringBreakdown.join(', '),\n      meta_capi_payload: {\n        data: [metaCapiData]\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        736,
+        -864
+      ],
+      "id": "6128d25e-85ed-4461-918d-03b2038ccdc5",
+      "name": "Lead Scoring & VBB"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c4f945b0-fd0c-4e03-a184-a8642b662ede",
+              "leftValue": "={{ $json.reconciliation_state }}",
+              "rightValue": "=COMPLETED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2080,
+        -768
+      ],
+      "id": "f1bdcd73-283a-4d82-b138-22b99064da22",
+      "name": "Reconciliation Router"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "667464b8-e1f5-4ef3-a5a0-d1b300ff93bd",
+              "leftValue": "={{ $json.reconciliation_state }}",
+              "rightValue": "RETRY_PENDING",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2416,
+        -512
+      ],
+      "id": "b918ed96-1c4f-4895-82c3-d7e046f3abf0",
+      "name": "Is Retry Pending?"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      ...$input.item.json,\n      alert_count: 1,\n      max_alerts: 3\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2656,
+        -192
+      ],
+      "id": "590a505d-cfbc-48fa-aae5-8e1777a6cb52",
+      "name": "Init Alert Counter"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://hooks.slack.com/services/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",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"text\": \"🚨 *CRITICAL MAR-TECH FAILURE*\\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n❌ *Status*: PERMANENT FAILURE (Both Sinks Rejected)\\n🆔 *Lead ID*: {{ $('1. Validate Input').item.json.lead_id }}\\n👤 *Lead*: {{ $('1. Validate Input').item.json.lead.full_name }} ({{ $('1. Validate Input').item.json.lead.email }})\\n⚠️ *Reason*: {{ $json.failure_reason }}\\n⚡ *Action*: Manual inspection required in Dead-Letter Queue.\\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        2864,
+        -192
+      ],
+      "id": "b3df3fc9-88ab-40aa-9ae9-4d9876d3808c",
+      "name": "Slack Ops Alert"
+    },
+    {
+      "parameters": {
+        "jsCode": "const currentCount = $input.item.json.alert_count || 1;\n\nreturn [\n  {\n    json: {\n      ...$input.item.json,\n      alert_count: currentCount + 1\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3616,
+        -208
+      ],
+      "id": "233a6e8e-e490-40ce-9d3f-81c642b931fa",
+      "name": "Increment Alert Count"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "fbe34744-ed17-422d-9094-f1f891282468",
+              "leftValue": "={{ $json.alert_count }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "lte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3232,
+        -192
+      ],
+      "id": "6689285a-8f5b-4db1-a2ef-2cd52263bd20",
+      "name": "Alert Count < 3"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appQJ8Yn1YacAvorw",
+          "mode": "list",
+          "cachedResultName": "Disability Claim Leads",
+          "cachedResultUrl": "https://airtable.com/appQJ8Yn1YacAvorw"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblpuD0wICpmFF748",
+          "mode": "list",
+          "cachedResultName": "Table 2",
+          "cachedResultUrl": "https://airtable.com/appQJ8Yn1YacAvorw/tblpuD0wICpmFF748"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Lead ID": "={{ $('Normalize + Validate').first().json.lead_id }}",
+            "failure": "={{ $json.failure_reason }}",
+            "Status": "RETRY_PENDING"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Lead ID",
+              "displayName": "Lead ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "failure",
+              "displayName": "failure",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        2672,
+        -592
+      ],
+      "id": "7886cbac-86db-44ed-b341-740ffde09b7f",
+      "name": "Recovery Queue Table",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "6kETcgdrKSPNLt2W",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v23.0/970309768738719/events",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": ""
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($('Lead Scoring & VBB').first().json.meta_capi_payload) }}",
+        "options": {}
+      },
+      "id": "70c57b46-6c07-4934-a329-6f9c7d5fffda",
+      "name": "Retry Meta CAPI",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        3120,
+        -592
+      ],
+      "retryOnFail": true,
+      "waitBetweenTries": 2000,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "172e58c5-4496-4d82-bf0a-e38e6d3d54e9",
+              "leftValue": "={{ $json.events_received }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3312,
+        -592
+      ],
+      "id": "da559e86-5dbf-4d4a-91c5-d8efcc948ae2",
+      "name": "Retry Succeeded?"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appQJ8Yn1YacAvorw",
+          "mode": "list",
+          "cachedResultName": "Disability Claim Leads",
+          "cachedResultUrl": "https://airtable.com/appQJ8Yn1YacAvorw"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblpuD0wICpmFF748",
+          "mode": "list",
+          "cachedResultName": "Table 2",
+          "cachedResultUrl": "https://airtable.com/appQJ8Yn1YacAvorw/tblpuD0wICpmFF748"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "RESOLVED_SUCCESS",
+            "id": "={{ $('Recovery Queue Table').item.json.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Lead ID",
+              "displayName": "Lead ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "failure",
+              "displayName": "failure",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        3616,
+        -656
+      ],
+      "id": "0aaa7b24-7638-406c-8310-6dfbe06619fa",
+      "name": "Mark Resolved in Airtable",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "6kETcgdrKSPNLt2W",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appQJ8Yn1YacAvorw",
+          "mode": "list",
+          "cachedResultName": "Disability Claim Leads",
+          "cachedResultUrl": "https://airtable.com/appQJ8Yn1YacAvorw"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblpuD0wICpmFF748",
+          "mode": "list",
+          "cachedResultName": "Table 2",
+          "cachedResultUrl": "https://airtable.com/appQJ8Yn1YacAvorw/tblpuD0wICpmFF748"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "PERMANENT_FAILURE",
+            "id": "={{ $('Recovery Queue Table').item.json.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Lead ID",
+              "displayName": "Lead ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "failure",
+              "displayName": "failure",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        3616,
+        -480
+      ],
+      "id": "e161eec1-8035-4f30-ac04-1f9f581fbe82",
+      "name": "Mark Permanent Failure in Airtable",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "6kETcgdrKSPNLt2W",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appQJ8Yn1YacAvorw",
+          "mode": "list",
+          "cachedResultName": "Disability Claim Leads",
+          "cachedResultUrl": "https://airtable.com/appQJ8Yn1YacAvorw"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblVsaTg9xNbAvlLJ",
+          "mode": "list",
+          "cachedResultName": "Table 3",
+          "cachedResultUrl": "https://airtable.com/appQJ8Yn1YacAvorw/tblVsaTg9xNbAvlLJ"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Lead ID": "={{ $('Normalize + Validate').first().json.lead_id }}",
+            "Email ": "={{ $('Normalize + Validate').first().json.normalized.email }}",
+            "Phone Number": "={{ $('Normalize + Validate').first().json.normalized.phone }}",
+            "Duplicate Reason": "Existing record matched in CRM"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Lead ID",
+              "displayName": "Lead ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email ",
+              "displayName": "Email ",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Duplicate Reason",
+              "displayName": "Duplicate Reason",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        960,
+        -1152
+      ],
+      "id": "3cd5ad1e-59cc-4885-a207-7caea6d5b649",
+      "name": "Log Duplicate to Airtable",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "6kETcgdrKSPNLt2W",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appQJ8Yn1YacAvorw",
+          "mode": "list",
+          "cachedResultName": "Disability Claim Leads",
+          "cachedResultUrl": "https://airtable.com/appQJ8Yn1YacAvorw"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblvjcnY7yD4HIq5x",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appQJ8Yn1YacAvorw/tblvjcnY7yD4HIq5x"
+        },
+        "filterByFormula": "=OR({Email} = '{{ $json.normalized.email }}', {Phone Number} = '{{ $json.lead.phone }}', {Meta Event ID} = '{{ $json.meta_event_id || $json.meta_capi_data.event_id }}')",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        304,
+        -976
+      ],
+      "id": "fd82d0e8-4275-4dc2-8437-67894becd1ca",
+      "name": "Idempotency Check (Airtable)",
+      "alwaysOutputData": true,
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "6kETcgdrKSPNLt2W",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "fd331b50-c557-46fe-bc29-4eb61c31961a",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "false",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        512,
+        -976
+      ],
+      "id": "b44fdc77-0c70-41e5-a657-4fe6e9ab47b4",
+      "name": "Is Duplicate?"
+    },
+    {
+      "parameters": {
+        "jsCode": "console.log('⚠️ Duplicate lead detected. Halting pipeline to prevent double-billing and duplicate CRM records.');\nreturn [\n  {\n    json: {\n      status: 'DUPLICATE_HALTED',\n      email: $input.item.json.fields?.Email,\n      airtable_existing_id: $input.item.json.id,\n      halted_at: new Date().toISOString()\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        736,
+        -1120
+      ],
+      "id": "63d9a564-b5bc-479b-bf51-a3d190972e8e",
+      "name": "Halt Duplicate Pipeline"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.item.json;\n\n// Safely get meta_capi_data (whether with or without .body)\nconst capiData = item.meta_capi_data || item.body?.meta_capi_data;\n\n// Safely get client IP and user agent from the Webhook headers\nconst headers = $('Webhook').item.json.headers || {};\nconst clientIp = headers[\"x-real-ip\"] || headers[\"cf-connecting-ip\"] || capiData?.user_data?.client_ip_address;\nconst userAgent = headers[\"user-agent\"] || capiData?.user_data?.client_user_agent;\nconst leadId = item.lead_id || item.body?.lead_id;\n\nreturn [{\n  json: {\n    data: [\n      {\n        ...capiData,\n        user_data: {\n          ...capiData?.user_data,\n          client_ip_address: clientIp,\n          client_user_agent: userAgent,\n          external_id: [leadId]\n        }\n      }\n    ]\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1136,
+        -928
+      ],
+      "id": "89b3ffff-0bf9-4e96-9bfa-ed0bdd8b0be4",
+      "name": "Format Meta CAPI Payload"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v23.0/970309768738719/events",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "EAAfnODQYP9wBSjfWGZBZConCAlYtfVztKvbtto6n6JonIZBZCuEqNuOAOQ1kIRfqQUZBcZCXaMyxK9JTJT16I2zx29ltW9M3AKsY3ee91pzebEjMsAR0fvDRaduBKPMySbbQeWnWfcSjIXdvTJFhZADlNsZBegEWobGBz07Th02u9gZCKtDmTWqIUVYCX3xvvQRjSPQZDZD"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{$json}}",
+        "options": {}
+      },
+      "id": "2d513bd1-271f-4e94-aeb9-289d1f875f60",
+      "name": "Meta CAPI2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1328,
+        -928
+      ],
+      "retryOnFail": true,
+      "waitBetweenTries": 2000,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appQJ8Yn1YacAvorw",
+          "mode": "list",
+          "cachedResultName": "Disability Claim Leads",
+          "cachedResultUrl": "https://airtable.com/appQJ8Yn1YacAvorw"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblvjcnY7yD4HIq5x",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appQJ8Yn1YacAvorw/tblvjcnY7yD4HIq5x"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Full Name": "={{ $json.lead.full_name }}",
+            "Phone Number": "={{ $json.lead.phone }}",
+            "Email": "={{ $json.lead.email }}",
+            "Age Range": "={{ $json.qualification_answers.page_uhs14w }}",
+            "Current Benefits ": "={{ $json.qualification_answers.receiving_ben }}",
+            "Work Status": "={{ $json.qualification_answers.page_sm72h5 }}",
+            "Out of Work 1+ Year": "={{ $json.qualification_answers.outofwork }}",
+            "10-Year Employment": "={{ $json.qualification_answers.fiveyearwork }}",
+            "Seeing Doctor": "={{ $json.qualification_answers.visit }}",
+            "Gender": "={{ $json.qualification_answers.page_1kwm6b }}",
+            "Pending SSG Claim": "={{ $json.qualification_answers.page_igxwft }}",
+            "Maritual Status": "={{ $json.qualification_answers.page_8w2qbu }}",
+            "UTM Source": "={{ $json.attribution.utm_source }}",
+            "UTM Campaign": "={{ $json.attribution.utm_campaign }}",
+            "Meta Event ID": "={{ $json.meta_capi_data.event_id }}",
+            "Submitted At": "={{ $json.created_at }}",
+            "Lead Score": "={{ $json.lead_score }}",
+            "Lead Grade": "={{ $json.lead_grade === 'HOT' ? 'Hot' : ($json.lead_grade === 'WARM' ? 'Warm' : 'Cold') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Current Benefits ",
+              "displayName": "Current Benefits ",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Work Status",
+              "displayName": "Work Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "10-Year Employment",
+              "displayName": "10-Year Employment",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Out of Work 1+ Year",
+              "displayName": "Out of Work 1+ Year",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Seeing Doctor",
+              "displayName": "Seeing Doctor",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Pending SSG Claim",
+              "displayName": "Pending SSG Claim",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Gender",
+              "displayName": "Gender",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Age Range",
+              "displayName": "Age Range",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Maritual Status",
+              "displayName": "Maritual Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Meta Event ID",
+              "displayName": "Meta Event ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "UTM Source",
+              "displayName": "UTM Source",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "UTM Campaign",
+              "displayName": "UTM Campaign",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Submitted At",
+              "displayName": "Submitted At",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Lead Score",
+              "displayName": "Lead Score",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Lead Grade",
+              "displayName": "Lead Grade",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Hot",
+                  "value": "Hot"
+                },
+                {
+                  "name": "Warm",
+                  "value": "Warm"
+                },
+                {
+                  "name": "Cold",
+                  "value": "Cold"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Select",
+              "displayName": "Select",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Delivered",
+                  "value": "Delivered"
+                },
+                {
+                  "name": "Failed",
+                  "value": "Failed"
+                },
+                {
+                  "name": "Skipped",
+                  "value": "Skipped"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "1c19eaaa-dedd-40ab-b760-10356ec75050",
+      "name": "Ingest to Airtable CRM",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        1200,
+        -656
+      ],
+      "waitBetweenTries": 2000,
+      "retryOnFail": true,
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "6kETcgdrKSPNLt2W",
+          "name": "Airtable account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1616,
+        -768
+      ],
+      "id": "d2e16138-cd3b-4104-9996-41440e24b661",
+      "name": "Parallel Sink Synchronizer"
+    },
+    {
+      "parameters": {
+        "jsCode": "const merged = $input.item.json;\n\n// Check Downstream Sinks\nconst isMetaSuccess = !!merged.events_received;\nconst isAirtableSuccess = !!merged.id;\n\n// Determine State according to your State Machine\nlet state = 'COMPLETED';\nlet failureDetails = [];\n\nif (isMetaSuccess && isAirtableSuccess) {\n  state = 'COMPLETED';\n} else if (isAirtableSuccess && !isMetaSuccess) {\n  state = 'RETRY_PENDING';\n  failureDetails.push('Meta CAPI Delivery Failed (Network timeout or rate limit)');\n} else if (!isAirtableSuccess && isMetaSuccess) {\n  state = 'RETRY_PENDING';\n  failureDetails.push('Airtable Database Ingestion Failed');\n} else {\n  state = 'PERMANENT_FAILURE';\n  failureDetails.push('CRITICAL: Both Airtable and Meta CAPI Failed');\n}\n\nreturn [\n  {\n    json: {\n      ...merged,\n      reconciliation_state: state,\n      meta_success: isMetaSuccess,\n      airtable_success: isAirtableSuccess,\n      failure_reason: failureDetails.join(' | ') || 'None',\n      reconciled_at: new Date().toISOString()\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1872,
+        -768
+      ],
+      "id": "e88c2ff8-b3a5-41a6-9c64-4f923d1be1f9",
+      "name": "Dual-Sink Reconciliation Engine"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c58e7049-35f0-4ec1-8e1f-923b8b1128e8",
+              "leftValue": "={{ $json.fields[\"Lead Score\"] }}",
+              "rightValue": 80,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2432,
+        -864
+      ],
+      "id": "2197c687-ce26-485f-a772-81e85dac4526",
+      "name": "Is Hot Lead? (Score >= 80)"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://hooks.slack.com/services/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",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"text\": \"🔥 *HIGH-VALUE HOT LEAD PROCESSED!*\\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n👤 *Name:* {{ $json.fields['Full Name'] }}\\n📊 *Score:* {{ $json.fields['Lead Score'] }} / 100 (HOT LEAD)\\n📞 *Phone:* {{ $json.fields['Phone Number'] }}\\n✉️ *Email:* {{ $json.fields['Email'] }}\\n🎯 *Campaign:* {{ $json.fields['UTM Campaign'] }} (Source: {{ $json.fields['UTM Source'] }})\\n⚡ *Meta CAPI:* ✅ Delivered (Trace: {{ $json.fbtrace_id }})\\n💾 *Airtable:* ✅ Created (ID: {{ $json.id }})\\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n*Status:* COMPLETED (Dual Sinks Synchronized)\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        2816,
+        -1024
+      ],
+      "id": "2e27fef7-44dd-4d24-9153-6e96215b0adb",
+      "name": "Slack Hot Lead Alert"
+    },
+    {
+      "parameters": {
+        "sendTo": "bloggerskkh121@gmail.com",
+        "subject": "=[HOT LEAD] {{ $json.fields['Full Name'] }} (Score: {{ $json.fields['Lead Score'] }}/100)",
+        "message": "=HIGH-VALUE HOT LEAD PROCESSED! ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n\n👤 Name: {{ $json.fields['Full Name'] }} \n📊 Score: {{ $json.fields['Lead Score'] }} / 100 (HOT LEAD) \n📞 Phone: {{ $json.fields['Phone Number'] }} ✉️ Email: {{ $json.fields['Email'] }} \n🎯 Campaign: {{ $json.fields['UTM Campaign'] }} \n(Source: {{ $json.fields['UTM Source'] }}) ⚡ Meta CAPI: ✅ Delivered (Trace ID: {{ $json.fbtrace_id }}) \n💾 Airtable: ✅ Created (Record ID: {{ $json.id }}) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Status: COMPLETED (Dual Sinks Synchronized)",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2816,
+        -848
+      ],
+      "id": "6d9e7599-450c-443c-85d9-2a7217aebf77",
+      "name": "Gmail Hot Lead Alert",
+      "webhookId": "dc2e2315-4ceb-4b4d-bd71-9207e78621fc",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "JBRGYw0WpEdaWM9g",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "bloggerskkh121@gmail.com",
+        "subject": "=🚨 CRITICAL OPS ALERT [Attempt {{ $json.alert_count }}/3]: Lead {{ $json.lead_id }} Failed Sinks",
+        "message": "=Lead ID {{ $json.lead_id }} failed both Airtable and Meta CAPI pipelines. Failure Details: {{ $json.failure_reason }}. Retrying notification in 5 minutes.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        3040,
+        -192
+      ],
+      "id": "199c0f59-33cf-48ac-8335-65bf7794bcd3",
+      "name": "Gmail Ops Escalation Alert",
+      "webhookId": "dc2e2315-4ceb-4b4d-bd71-9207e78621fc",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "JBRGYw0WpEdaWM9g",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3456,
+        -208
+      ],
+      "id": "e5567dd7-9acc-4f01-a29d-58c68afcc9af",
+      "name": "Wait 5 Minutes",
+      "webhookId": "19efd829-bdf8-4f51-bd66-34aa5108f9ea"
+    },
+    {
+      "parameters": {
+        "amount": 2,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2896,
+        -592
+      ],
+      "id": "f8d194b5-3e29-46c7-b932-15951cea2755",
+      "name": "Wait 2 Mins",
+      "webhookId": "1787958d-20d0-440b-9048-01ac16654ca1"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize + Validate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta CAPI": {
+      "main": [
+        []
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Meta CAPI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Valid Lead?": {
+      "main": [
+        [
+          {
+            "node": "Idempotency Check (Airtable)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize + Validate": {
+      "main": [
+        [
+          {
+            "node": "Is Valid Lead?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lead Scoring & VBB": {
+      "main": [
+        [
+          {
+            "node": "Format Meta CAPI Payload",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Ingest to Airtable CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reconciliation Router": {
+      "main": [
+        [
+          {
+            "node": "Is Hot Lead? (Score >= 80)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Retry Pending?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Retry Pending?": {
+      "main": [
+        [
+          {
+            "node": "Recovery Queue Table",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Init Alert Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Init Alert Counter": {
+      "main": [
+        [
+          {
+            "node": "Slack Ops Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack Ops Alert": {
+      "main": [
+        [
+          {
+            "node": "Gmail Ops Escalation Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increment Alert Count": {
+      "main": [
+        [
+          {
+            "node": "Slack Ops Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Alert Count < 3": {
+      "main": [
+        [
+          {
+            "node": "Wait 5 Minutes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recovery Queue Table": {
+      "main": [
+        [
+          {
+            "node": "Wait 2 Mins",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Meta CAPI": {
+      "main": [
+        [
+          {
+            "node": "Retry Succeeded?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Succeeded?": {
+      "main": [
+        [
+          {
+            "node": "Mark Resolved in Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark Permanent Failure in Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Permanent Failure in Airtable": {
+      "main": [
+        [
+          {
+            "node": "Init Alert Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Idempotency Check (Airtable)": {
+      "main": [
+        [
+          {
+            "node": "Is Duplicate?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Duplicate?": {
+      "main": [
+        [
+          {
+            "node": "Halt Duplicate Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lead Scoring & VBB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Halt Duplicate Pipeline": {
+      "main": [
+        [
+          {
+            "node": "Log Duplicate to Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Meta CAPI Payload": {
+      "main": [
+        [
+          {
+            "node": "Meta CAPI2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta CAPI2": {
+      "main": [
+        [
+          {
+            "node": "Parallel Sink Synchronizer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ingest to Airtable CRM": {
+      "main": [
+        [
+          {
+            "node": "Parallel Sink Synchronizer",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Parallel Sink Synchronizer": {
+      "main": [
+        [
+          {
+            "node": "Dual-Sink Reconciliation Engine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dual-Sink Reconciliation Engine": {
+      "main": [
+        [
+          {
+            "node": "Reconciliation Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Hot Lead? (Score >= 80)": {
+      "main": [
+        [
+          {
+            "node": "Slack Hot Lead Alert",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Gmail Hot Lead Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack Hot Lead Alert": {
+      "main": [
+        []
+      ]
+    },
+    "Gmail Ops Escalation Alert": {
+      "main": [
+        [
+          {
+            "node": "Alert Count < 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 5 Minutes": {
+      "main": [
+        [
+          {
+            "node": "Increment Alert Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 2 Mins": {
+      "main": [
+        [
+          {
+            "node": "Retry Meta CAPI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "726daef325ae2401abe5e28e2d90a5874ed43c7e6d185a4a630d5a2bef2fbd6b"
+  }
+}
