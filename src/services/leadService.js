@@ -73,12 +73,25 @@ export async function prepareLeadPayload({ fullName, phone, email, answers, dura
   const hashedFirstName = await sha256(firstName);
   const hashedLastName = await sha256(lastName);
 
+  // Meta CAPI Gender matching (ge: 'm' or 'f' hashed) from survey answer (page_1kwm6b)
+  let hashedGender;
+  const rawGender = (answers?.page_1kwm6b || '').toLowerCase();
+  if (rawGender.includes('male') && !rawGender.includes('female')) {
+    hashedGender = await sha256('m');
+  } else if (rawGender.includes('female')) {
+    hashedGender = await sha256('f');
+  }
+
+  // Country code: US Disability claims are strictly US-based (country: 'us' hashed)
+  const hashedCountry = await sha256('us');
+
   const fbc = getOrConstructFbc(tracking.fbclid);
   const fbp = getOrConstructFbp();
+  const leadId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
 
   const payload = {
     // Unique Identifiers
-    lead_id: 'lead_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8),
+    lead_id: leadId,
     meta_event_id: eventId, // Deduplication key for Meta Pixel & CAPI
     created_at: new Date().toISOString(),
     submission_duration_seconds: durationSeconds,
@@ -94,7 +107,8 @@ export async function prepareLeadPayload({ fullName, phone, email, answers, dura
       hashed_email: hashedEmail,
       hashed_phone: hashedPhone,
       hashed_first_name: hashedFirstName,
-      hashed_last_name: hashedLastName
+      hashed_last_name: hashedLastName,
+      gender: rawGender || undefined
     },
 
     // Funnel Responses (Mapped directly for Airtable columns)
@@ -111,7 +125,7 @@ export async function prepareLeadPayload({ fullName, phone, email, answers, dura
       landing_page_url: tracking.landing_page_url
     },
 
-    // Meta Conversion API (CAPI) Spec Parameters with High Event Match Quality
+    // Meta Conversion API (CAPI) Spec Parameters with Maximum Event Match Quality (EMQ)
     meta_capi_data: {
       event_name: 'Lead',
       event_time: Math.floor(Date.now() / 1000),
@@ -123,6 +137,9 @@ export async function prepareLeadPayload({ fullName, phone, email, answers, dura
         ph: hashedPhone ? [hashedPhone] : undefined,
         fn: hashedFirstName ? [hashedFirstName] : undefined,
         ln: hashedLastName ? [hashedLastName] : undefined,
+        ge: hashedGender ? [hashedGender] : undefined,
+        country: [hashedCountry],
+        external_id: [leadId],
         fbc: fbc || undefined,
         fbp: fbp || undefined,
         client_user_agent: tracking.user_agent

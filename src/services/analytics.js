@@ -27,6 +27,12 @@ export function getCookie(name) {
   return match ? decodeURIComponent(match[2]) : '';
 }
 
+export function setCookie(name, value, days = 90) {
+  if (typeof document === 'undefined') return;
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
+}
+
 /**
  * Resolves or constructs the Meta _fbc click identifier
  */
@@ -35,7 +41,9 @@ export function getOrConstructFbc(fbclid) {
   if (existingCookie) return existingCookie;
   if (fbclid) {
     // Standard format: fb.1.<creation_timestamp_ms>.<fbclid>
-    return `fb.1.${Date.now()}.${fbclid}`;
+    const constructed = `fb.1.${Date.now()}.${fbclid}`;
+    setCookie('_fbc', constructed);
+    return constructed;
   }
   return '';
 }
@@ -48,7 +56,9 @@ export function getOrConstructFbp() {
   if (existingCookie) return existingCookie;
   // Generate fallback identifier if not yet set by pixel script
   const randomNum = Math.floor(Math.random() * 8999999999 + 1000000000);
-  return `fb.1.${Date.now()}.${randomNum}`;
+  const constructed = `fb.1.${Date.now()}.${randomNum}`;
+  setCookie('_fbp', constructed);
+  return constructed;
 }
 
 /**
