@@ -1,216 +1,466 @@
-# Disability Path — Growth Automation Lead Qualification Funnel
+# 🚀 Growth Automation Funnel Platform
 
-A high-converting, resilient qualification funnel built with **React**, **Vite**, and **Tailwind CSS**. Designed specifically for high-intent customer acquisition, **Meta Conversion API (CAPI) deduplication**, and automated routing through **n8n &rarr; Airtable**.
+> Production-grade lead capture, qualification, tracking, scoring, alerting, and recovery system built for the LexHive Growth Automation Engineer Assessment.
 
----
+## 🎯 Overview
 
-## 🚀 Live Demo & Quick Start
+This project goes beyond a traditional form submission workflow by combining:
 
-### 1. Install Dependencies
-```bash
-npm install
-```
-
-### 2. Run Locally in Development Mode
-```bash
-npm run dev
-```
-Open your browser at `http://localhost:5173` (or the port indicated in your terminal).
-
-### 3. Production Build
-```bash
-npm run build
-npm run preview
-```
+- React + Vite Qualification Funnel
+- Meta Conversions API (CAPI) Integration
+- n8n Automation & Orchestration
+- Airtable CRM
+- Lead Scoring & Value-Based Bidding (VBB)
+- Duplicate Detection & Idempotency Controls
+- Recovery Queue & Reconciliation Logic
+- Real-Time Slack & Gmail Alerting
 
 ---
 
-## 📁 Directory & File Structure Breakdown
+## 🌐 Live Demo
 
-Here is an architectural map of the entire codebase and the specific purpose of each folder and file:
+### Live Funnel
+https://react-multi-form-funnel.vercel.app/
 
-```
-Growth Automation Application/
-├── public/                     # Static public assets
-├── src/
-│   ├── assets/                 # SVGs and brand assets
-│   ├── components/             # Modular React UI components
-│   │   ├── Header.jsx          # Top navigation, brand emblem, SSL status, and Lead Hub trigger
-│   │   ├── ProgressBar.jsx     # Dynamic animated progress bar, back navigation, step counter
-│   │   ├── QuestionCard.jsx    # Accessible, interactive question cards with keyboard (1-9) shortcuts
-│   │   ├── CalculatingStep.jsx # High-converting animated audit/calculation interstitial
-│   │   ├── LeadCaptureStep.jsx # Pre-qualification announcement, RFC-compliant email capture, trust seals
-│   │   ├── ConfirmationStep.jsx# Celebratory confetti, benefit tier card, next steps, and event telemetry
-│   │   ├── Footer.jsx          # FTC & SSA regulatory compliance disclaimers and modal triggers
-│   │   ├── LegalModal.jsx      # Privacy policy and terms & conditions dialog
-│   │   └── LeadInspectorModal.jsx # Developer/Assessor hub to test n8n webhooks and inspect live payloads
-│   ├── data/
-│   │   └── questions.js        # Canonical survey questions schema, options, badges, and icons
-│   ├── services/
-│   │   ├── analytics.js        # Meta Pixel + CAPI event tracking, deduplication (event_id), SHA-256 hashing
-│   │   ├── leadService.js      # Resilient lead dispatcher, webhook poster, and localStorage offline vault
-│   │   └── urlParams.js        # Automatic UTM and click ID (fbclid, gclid) extraction utility
-│   ├── App.jsx                 # Main funnel orchestrator, state machine, and lifecycle coordinator
-│   ├── index.css               # Tailwind CSS v4 styling rules and custom animations
-│   └── main.jsx                # React 19 application entry point
-├── .env.example                # Example environment variables (webhook URL, Pixel ID)
-├── index.html                  # HTML entry point with metadata, preloaded fonts, and favicon
-├── package.json                # Project dependencies and build scripts
-└── vite.config.js              # Vite configuration with Tailwind CSS plugin
+### GitHub Repository
+https://github.com/koushik12122000/React-MultiForm-Funnel
+
+---
+
+# 🏗️ System Architecture
+
+```text
+React Funnel (Vercel)
+        │
+        ▼
+Webhook (n8n)
+        │
+        ▼
+Validation & Normalization
+        │
+        ▼
+Duplicate Detection
+        │
+        ▼
+Lead Scoring Engine
+        │
+        ├────────────► Meta CAPI
+        │
+        └────────────► Airtable CRM
+                              │
+                              ▼
+                    Reconciliation Layer
+                              │
+                              ▼
+                    Slack / Email Alerts
+
+Failure Handling
+       │
+       ▼
+Recovery Queue
+       │
+       ▼
+Retry Workflow
 ```
 
 ---
 
-## 🧠 File-by-File Logic & Architecture Guide
+# ✨ Key Features
 
-### `src/App.jsx`
-- **Purpose**: Serves as the central state machine and coordinator for the funnel.
-- **Key State Variables**:
-  - `currentStepIndex`: Tracks which survey question (0 through 10) is currently active.
-  - `flowState`: Controls whether the user is in `'questions'`, `'calculating'`, `'lead_capture'`, or `'confirmation'`.
-  - `answers`: Key-value map of question IDs to selected values.
-  - `leadPayload`: Holds the prepared, standardized data packet once the lead submits their email.
-- **Key Logic**:
-  - Automatically records the session start timestamp to compute time-to-convert (`durationSeconds`).
-  - Calls `trackEvent('PageView')` on mount with landing URL and UTM parameters.
-  - Switches seamlessly between the survey questions, the calculation screen, the email capture form, and the confirmation screen.
+## Multi-Step Qualification Funnel
 
-### `src/data/questions.js`
-- **Purpose**: Centralized source of truth for the 11 linear qualification questions matching the live funnel:
-  1. `is_over_40` (YES / NO)
-  2. `current_benefits` (SSD / SSI / Both / None)
-  3. `weekly_work_hours` (Not working / 20 or less / More than 20)
-  4. `employment_history_10yr` (<2 yrs / 2-4 yrs / 4-6 yrs / 6+ yrs)
-  5. `asset_value` (<$2,000 / >$2,000 / Not Sure)
-  6. `out_of_work_duration` (Yes / No)
-  7. `medical_care_status` (Yes / No)
-  8. `pending_ssd_application` (Yes / No)
-  9. `gender` (Male / Female / Non-Binary / Prefer not to respond)
-  10. `age_range` (Under 40 / 40-49 / 50-54 / 55-63 / 64 or older)
-  11. `marital_status` (Single / Married / Widowed / Divorced / Separated)
-
-### `src/services/analytics.js` (Meta CAPI & Pixel Deduplication)
-- **Purpose**: Solves Meta event quality and deduplication requirements.
-- **How Deduplication Works**:
-  - Generates a unique `event_id` (UUIDv4) per conversion.
-  - When the browser fires `fbq('track', 'Lead', {...}, { eventID: event_id })`, and your n8n workflow fires the Meta Conversions API with the same `event_id`, Meta combines them into a single high-fidelity conversion event.
-  - Includes `getOrConstructFbp()` and `getOrConstructFbc()` to extract or construct Meta click cookies from `fbclid`.
-  - Implements client-side `sha256(email)` to conform with Meta Advanced Matching rules.
-
-### `src/services/leadService.js` (Resilience & Webhook Delivery)
-- **Purpose**: Handles lead preparation, live webhook transmission, and resilient failure recovery.
-- **Resilience Engine**:
-  - `submitLead(payload)` attempts to POST the structured payload to the configured webhook (e.g. n8n).
-  - **Graceful Failure Handling**: If the webhook fails, times out, or triggers a CORS error, the lead is **never lost**. It is immediately stored in `localStorage` under `offline_leads_vault` with an error message and timestamp.
-  - `retryVaultedLeads()`: Allows automatic or manual retries of all queued offline leads.
-  - In absence of a live webhook URL, it runs in **Simulation Mode**, logging the complete payload and saving it to local history so assessors can inspect it immediately.
-
-### `src/services/urlParams.js` (Attribution Engine)
-- **Purpose**: Captures marketing campaign parameters without manual setup:
-  - UTM: `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`
-  - Ad Click IDs: `fbclid` (Meta), `gclid` (Google Ads), `ttclid` (TikTok)
-  - Device context: User Agent, Language, Timezone, Screen Resolution, Referrer
-
-### UI Components:
-- **`Header.jsx`**: Displays clean branding ("DisabilityPath") and "Official 2026 Guidelines" badge without backend clutter.
-- **`ProgressBar.jsx`**: Displays dynamic percentage progress, estimated completion time ("~60 sec"), and a functional "Back" button to step back through the user's specific branch history.
-- **`QuestionCard.jsx`**: Premium interactive question layout with card lift hover effects, active border rings, checkmark badges, and **keyboard shortcuts** (press 1-9 to select).
-- **`CalculatingStep.jsx`**: Interstitial animation simulating real-time SSA eligibility matching to increase user perceived value before the lead form.
-- **`LeadCaptureStep.jsx`**: The core conversion point: captures **Full Name**, **Phone Number** (with auto-formatting `(XXX) XXX-XXXX`), and **Email Address** with live input validation and trust guarantees.
-- **`ConfirmationStep.jsx`**: Celebratory confetti trigger, personalized welcome, estimated benefit tier summary ($4,152/mo), and next steps timeline.
+- Reverse-engineered DisabilityPath qualification flow
+- Dynamic branching logic
+- Mobile responsive UI
+- Form validation
+- Progress tracking
+- UTM attribution capture
+- Conversion focused UX
 
 ---
 
-## 🔗 How to Connect to n8n & Airtable
+## Meta Conversions API (CAPI)
 
-### 1. Configure the Webhook Endpoint
-In your application `.env` file:
-```bash
-VITE_LEAD_WEBHOOK_URL=https://your-n8n-instance.com/webhook/disability-lead
+Implemented server-side conversion tracking through n8n.
+
+### Advanced Matching Signals
+
+✅ Email
+
+✅ Phone
+
+✅ First Name
+
+✅ Gender
+
+✅ Country
+
+✅ External ID
+
+✅ IP Address
+
+✅ User Agent
+
+✅ FBP
+
+### Event Deduplication
+
+A unique UUID-based Event ID is generated and propagated throughout the funnel lifecycle.
+
+```text
+Browser Event
+      ↓
+Server Event
+      ↓
+Meta CAPI
 ```
 
-### 2. Sample Payload Dispatched to n8n
-```json
-{
-  "lead_id": "lead_1727685600000_3x9z",
-  "meta_event_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-  "created_at": "2026-09-30T07:15:00.000Z",
-  "submission_duration_seconds": 42,
-  "lead": {
-    "full_name": "John Doe",
-    "first_name": "John",
-    "last_name": "Doe",
-    "phone": "(555) 234-5678",
-    "normalized_phone": "15552345678",
-    "email": "john.doe@example.com",
-    "hashed_email": "...",
-    "hashed_phone": "...",
-    "hashed_first_name": "...",
-    "hashed_last_name": "..."
-  },
-  "qualification_answers": {
-    "is_over_40": "yes",
-    "receiving_ben": "None",
-    "page_sm72h5": "Not working",
-    "lastworked": "4 to 7 months ago",
-    "fiveyearwork": "Between 4 and 6 years",
-    "outofwork": "Yes",
-    "conditionstart": "6 to 12 months ago",
-    "visit": "Yes",
-    "page_igxwft": "No",
-    "page_1kwm6b": "Male",
-    "page_uhs14w": "50-54",
-    "page_8w2qbu": "Married"
-  },
-  "attribution": {
-    "utm_source": "facebook",
-    "utm_medium": "cpc",
-    "utm_campaign": "disability_50_plus",
-    "landing_page_url": "https://funnel.example.com/?utm_source=facebook"
-  },
-  "meta_capi_data": {
-    "event_name": "Lead",
-    "event_time": 1727685600,
-    "event_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-    "action_source": "website",
-    "user_data": {
-      "em": ["..."],
-      "ph": ["..."],
-      "fn": ["..."],
-      "ln": ["..."],
-      "fbp": "fb.1.1727685600.123456789",
-      "fbc": "fb.1.1727685600.IwAR2..."
-    },
-    "custom_data": {
-      "currency": "USD",
-      "value": 4152.00,
-      "lead_type": "disability_pre_qualification"
-    }
-  }
-}
+This prevents duplicate conversion reporting.
+
+### Event Match Quality
+
+```text
+3.2 / 10  →  6.5 / 10
 ```
 
-### 3. n8n Workflow Construction
-1. **Webhook Node**: Set HTTP Method to `POST`, Response Mode to `On Received`.
-2. **Branch 1 &rarr; Meta Conversions API (HTTP Request Node)**:
-   - URL: `https://graph.facebook.com/v19.0/{{$env.META_PIXEL_ID}}/events?access_token={{$env.META_CAPI_TOKEN}}`
-   - Body: Send the `meta_capi_data` object directly. The matching `event_id` ensures 100% deduplication against browser pixel events.
-3. **Branch 2 &rarr; Airtable Node**:
-   - Operation: `Append`
-   - Field Mapping:
-     - `Email`: `{{$json.lead.email}}`
-     - `Age Range`: `{{$json.qualification_answers.age_range}}`
-     - `Work Status`: `{{$json.qualification_answers.weekly_work_hours}}`
-     - `Asset Value`: `{{$json.qualification_answers.asset_value}}`
-     - `Meta Event ID`: `{{$json.meta_event_id}}`
-     - `UTM Source`: `{{$json.attribution.utm_source}}`
+Improved through advanced matching signals and server-side tracking.
 
 ---
 
-## 🛡️ Resilience & Fault Tolerance Highlights
-1. **Zero Lead Loss via Offline Vault**: If n8n or the network is momentarily down, the lead payload is safely queued in `localStorage` under `offline_leads_vault`.
-2. **Automated & Manual Retries**: Retries can be triggered from the in-app inspector or synced automatically upon reconnection.
-3. **Data Normalization**: All survey answers are mapped to canonical identifiers, preventing schema mismatch in downstream databases.
-#   R e a c t - M u l t i F o r m - F u n n e l  
- #   R e a c t - M u l t i F o r m - F u n n e l  
- 
+## Validation & Data Quality Layer
+
+Before any writes occur, every lead is normalized and validated.
+
+### Validation Rules
+
+- Email Format Validation
+- Phone Validation
+- Required Field Validation
+- Data Normalization
+- Input Sanitization
+
+Invalid leads are quarantined before entering downstream systems.
+
+---
+
+## Duplicate Detection & Idempotency
+
+Before creating records:
+
+```text
+Email
+Phone Number
+Meta Event ID
+```
+
+are checked against Airtable.
+
+### Benefits
+
+- Prevents duplicate CRM records
+- Prevents duplicate Meta conversions
+- Avoids duplicate outreach
+- Preserves attribution accuracy
+
+---
+
+## Lead Scoring Engine
+
+Every submission receives a qualification score.
+
+### Example Scoring Rules
+
+```text
+SSD Benefits          +25
+Not Working           +25
+Income < $2000        +20
+Age 40+               +10
+```
+
+### Lead Classification
+
+```text
+HOT    ≥ 80
+WARM   ≥ 50
+COLD   < 50
+```
+
+---
+
+## Value-Based Bidding (VBB)
+
+Lead quality directly influences Meta conversion value.
+
+```text
+HOT    → $100
+WARM   → $45
+COLD   → $15
+```
+
+This allows Meta's optimization algorithm to prioritize higher-value prospects.
+
+---
+
+# 🗄️ Airtable CRM Architecture
+
+## Table 1 — CRM Leads
+
+Primary operational database.
+
+Stores:
+
+- Lead Information
+- Qualification Answers
+- Lead Score
+- Lead Grade
+- Meta Event ID
+- UTM Attribution
+- Submission Metadata
+
+---
+
+## Table 2 — Recovery Queue
+
+Dead Letter Queue (DLQ) for operational recovery.
+
+Stores:
+
+- Failed Events
+- Retry Status
+- Error Reason
+- Processing State
+
+### States
+
+```text
+RETRY_PENDING
+COMPLETED
+PERMANENT_FAILURE
+```
+
+---
+
+## Table 3 — Duplicate Vault
+
+Stores duplicate submissions separately from production CRM data.
+
+Benefits:
+
+- Maintains clean reporting
+- Prevents duplicate outreach
+- Preserves audit history
+
+---
+
+# 🔄 Reliability & Recovery Design
+
+The system treats Meta CAPI and Airtable as independent downstream sinks.
+
+### Processing Flow
+
+```text
+Lead
+ ├─ Meta CAPI
+ └─ Airtable CRM
+```
+
+Failures in one destination do not block delivery to the other.
+
+---
+
+## Reconciliation Layer
+
+After sink execution, the workflow evaluates both outcomes.
+
+Possible states:
+
+```text
+COMPLETED
+RETRY_PENDING
+PERMANENT_FAILURE
+```
+
+---
+
+## Automated Recovery Pipeline
+
+Failed transactions enter a recovery queue.
+
+```text
+Failure
+   ↓
+Recovery Queue
+   ↓
+Backoff Wait
+   ↓
+Retry
+   ↓
+Resolution
+```
+
+This ensures leads are never silently lost.
+
+---
+
+# 🔔 Operational Alerting
+
+## HOT Lead Notifications
+
+When:
+
+```text
+Lead Score >= 80
+```
+
+the system triggers:
+
+- Slack Alerts
+- Gmail Alerts
+
+to enable rapid follow-up.
+
+---
+
+## Failure Notifications
+
+Automatic alerts for:
+
+- Meta Delivery Failure
+- Airtable Failure
+- Critical Pipeline Failure
+
+---
+
+# 🛠️ Tech Stack
+
+### Frontend
+
+```text
+React
+Vite
+Tailwind CSS
+JavaScript
+```
+
+### Automation
+
+```text
+n8n
+```
+
+### CRM
+
+```text
+Airtable
+```
+
+### Tracking
+
+```text
+Meta Conversions API
+```
+
+### Notifications
+
+```text
+Slack
+Gmail
+```
+
+### Deployment
+
+```text
+Vercel
+```
+
+---
+
+# 🚀 What Makes This Different?
+
+Most lead generation systems:
+
+```text
+Form
+ ↓
+Database
+```
+
+This implementation:
+
+```text
+Qualification Funnel
+ ↓
+Validation
+ ↓
+Deduplication
+ ↓
+Lead Scoring
+ ↓
+Meta CAPI
+ ↓
+CRM
+ ↓
+Reconciliation
+ ↓
+Recovery Queue
+ ↓
+Alerting
+```
+
+The focus was not simply collecting leads but building resilient marketing infrastructure with tracking accuracy, failure recovery, and operational visibility.
+
+---
+
+# 📌 Assignment Objectives Covered
+
+✅ React Funnel
+
+✅ Lead Capture
+
+✅ Meta Conversions API
+
+✅ Advanced Matching
+
+✅ Event Deduplication
+
+✅ n8n Automation
+
+✅ Airtable CRM
+
+✅ Duplicate Detection
+
+✅ Lead Scoring
+
+✅ Value-Based Bidding
+
+✅ Recovery Queue
+
+✅ Retry Handling
+
+✅ Operational Alerting
+
+✅ Reliability & Observability
+
+---
+
+# 👨‍💻 Author
+
+**Koushik Pesaru**
+
+- GitHub: https://github.com/koushik12122000
+- LinkedIn: https://www.linkedin.com/in/koushik-pesaru/
+
+---
+
+## Final Note
+
+This project was designed as a production-oriented Growth Automation system focused on:
+
+- High-quality conversion tracking
+- Lead qualification
+- Reliability
+- Recoverability
+- Operational visibility
+- Marketing attribution
+
+rather than a simple form-to-database implementation.
